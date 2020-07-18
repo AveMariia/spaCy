@@ -76,12 +76,12 @@ def get_labelled_sentences(docs, doc_labels):
         for sent in doc.sents:
             sentences.append(sent)
             labels.append(y)
-    return sentences, numpy.asarray(labels, dtype="int32")
+    return sentences, numpy.asarray(labels, dtype="int")
 
 
 def get_features(docs, max_length):
     docs = list(docs)
-    Xs = numpy.zeros((len(docs), max_length), dtype="int32")
+    Xs = numpy.zeros((len(docs), max_length), dtype="int")
     for i, doc in enumerate(docs):
         j = 0
         for token in doc:
@@ -241,9 +241,9 @@ def main(
         if dev_dir is None:
             dev_texts, dev_labels = zip(*imdb_data[1])
         else:
-            dev_texts, dev_labels = read_data(dev_dir, imdb_data, limit=nr_examples)
-        train_labels = numpy.asarray(train_labels, dtype="int32")
-        dev_labels = numpy.asarray(dev_labels, dtype="int32")
+            dev_texts, dev_labels = read_data(dev_dir, limit=nr_examples)
+        train_labels = numpy.asarray(train_labels, dtype="int")
+        dev_labels = numpy.asarray(dev_labels, dtype="int")
         lstm = train(
             train_texts,
             train_labels,
